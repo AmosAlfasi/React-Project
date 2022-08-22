@@ -1,0 +1,34 @@
+.add-user {
+    padding: 16px 16px;
+
+    .title {
+        text-align: center;
+    }
+
+    Form {
+        display: block;
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .submit {
+            float: right;
+            margin-top: 8px;
+            margin-right: 8px;
+        }
+
+        .birthday-container {
+            margin-top: 8px;
+
+            .birthday-fields {
+                margin-top: 8px;
+                display: flex;
+
+                .form-group {
+                    margin-right: 16px;
+                }
+            }
+        }
+    }
+}

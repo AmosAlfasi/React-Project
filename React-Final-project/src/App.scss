@@ -1,0 +1,34 @@
+.content {
+	.users {
+		flex-wrap: wrap;
+		display: flex;
+		justify-content: center;
+
+		.card {
+			justify-content: center;
+			align-items: center;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+			transition: 0.3s;
+			height: 300px;
+			width: 300px;
+			border-radius: 10px;
+			margin: 16px 16px;
+			padding: 16px 16px;
+
+			Button {
+				width: 100%;
+			}
+
+			.card-img-top {
+				height: 150px;
+				width: 200px;
+			}
+
+			.card-body {
+				padding: 0;
+				width: 100%;
+			}
+
+		}
+	}
+}
