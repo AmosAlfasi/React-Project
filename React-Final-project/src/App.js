@@ -51,6 +51,7 @@ const initUsers = [
 
 function App() {
   const [selectedUser, setSelectedUser] = useState(null);
+
   const { costs, addCost, removeCost } = useCostManager(selectedUser?.id ?? null, {
     sortFn: (a, b) => b.timestamp - a.timestamp,
   });
@@ -66,6 +67,7 @@ function App() {
 
   const showInfoHandler = (user) => {
     setSelectedUser(user);
+
     setShowUserInfo();
   };
 
@@ -147,7 +149,12 @@ function App() {
         selectedUser={selectedUser}
       />
 
-      <UserInfo show={userInfoVisible} onClose={setHideUserInfo} selectedUser={selectedUser} />
+      <UserInfo
+        show={userInfoVisible}
+        onClose={setHideUserInfo}
+        selectedUser={selectedUser}
+        costs={costs}
+      />
     </div>
   );
 }

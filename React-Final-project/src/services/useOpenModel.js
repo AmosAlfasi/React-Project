@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 const useOpenModal = (initialValue) => {
-  const [oepn, setOepn] = useState(initialValue);
+  const [open, setOepn] = useState(initialValue);
   const handleClose = () => setOepn(false);
   const handleOpen = () => setOepn(true);
-  return [oepn, handleOpen, handleClose];
+  return [open, handleOpen, handleClose];
 };
 
 export default useOpenModal;
