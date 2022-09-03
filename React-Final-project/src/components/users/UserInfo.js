@@ -4,9 +4,6 @@ import { Modal } from "react-bootstrap";
 import { Table } from "react-bootstrap";
 
 const UserInfo = ({ show, onClose, selectedUser, costs }) => {
-  // let shit = useCostManager.getCosts(selectedUser.id);
-  console.log(selectedUser);
-
   const details = Object.entries(selectedUser ?? {}).map(([key, value]) => (
     <div key={key}>
       {key} : {value}
@@ -15,6 +12,9 @@ const UserInfo = ({ show, onClose, selectedUser, costs }) => {
 
   return (
     <Modal show={show && !!selectedUser} onHide={onClose}>
+      {details}
+      {<h1>Cost items</h1>}
+
       {
         <Table striped bordered hover>
           <thead>

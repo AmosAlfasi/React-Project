@@ -48,8 +48,10 @@ const useCostManager = (userId, options) => {
 
   return {
     costs,
+
     addCost,
     removeCost,
+    refreshCosts,
   };
 };
 

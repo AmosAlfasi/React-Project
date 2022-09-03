@@ -52,7 +52,7 @@ const initUsers = [
 function App() {
   const [selectedUser, setSelectedUser] = useState(null);
 
-  const { costs, addCost, removeCost } = useCostManager(selectedUser?.id ?? null, {
+  const { costs, addCost, removeCost, refreshCosts } = useCostManager(selectedUser?.id ?? null, {
     sortFn: (a, b) => b.timestamp - a.timestamp,
   });
   const [users, setUsers] = useState(initUsers);
@@ -61,13 +61,16 @@ function App() {
   const [addUserVisible, setShowAddUser, setHideAddUser] = useOpenModal(false);
   const [addCostVisible, setShowAddCost, setHideAddCost] = useOpenModal(false);
 
+  // useEffect(() => {
+  //   console.log("current costs: ", costs);
+  // }, [costs]);
+
   useEffect(() => {
-    console.log("current costs: ", costs);
-  }, [costs]);
+    refreshCosts();
+  }, [selectedUser]);
 
   const showInfoHandler = (user) => {
     setSelectedUser(user);
-
     setShowUserInfo();
   };
 
