@@ -18,6 +18,7 @@ const YEARS = generateNumbersArray(1970, 2022);
 const AddCost = ({ show, onClose, onSuccess, selectedUser }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
   const [cost, setCost] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
@@ -28,6 +29,7 @@ const AddCost = ({ show, onClose, onSuccess, selectedUser }) => {
       costID: UUID.v4(),
       name,
       description,
+      category,
       cost,
       month,
       year,
@@ -52,6 +54,14 @@ const AddCost = ({ show, onClose, onSuccess, selectedUser }) => {
               type="text"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="form-group">
+            <Form.Label>Category:</Form.Label>
+            <Form.Control
+              type="text"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
             />
           </Form.Group>
           <Form.Group className="form-group">
