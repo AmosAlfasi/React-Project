@@ -1,0 +1,14 @@
+.add-cost {
+    form {
+        display: block;
+
+        .form-group {
+            display: flex;
+            margin-bottom: 16px;
+
+            .form-label {
+                width: 40%;
+            }
+        }
+    }
+}

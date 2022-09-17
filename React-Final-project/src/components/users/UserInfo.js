@@ -79,7 +79,6 @@ const UserInfo = ({ show, onClose, selectedUser, costs }) => {
             </Button>
           </Form>
         </div>
-        <div className="title">Cost items</div>
         <Table striped bordered hover>
           <thead>
             <tr>

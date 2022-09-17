@@ -2,21 +2,24 @@
   max-height: 30%;
   padding: 24px 24px;
 
-  .user-info-modal {
-    .user-info {
-      .flex-row {
-        display: flex;
+  .user-info {
+    .flex-row {
+      margin-bottom: 24px;
+      display: flex;
 
-        .info {
+      .info {
+        width: 40%;
+      }
+
+      form {
+        align-items: self-end;
+
+        .form-group {
           margin-right: 24px;
         }
 
-        form {
-          .form-group {
-            margin-right: 24px;
-          }
-        }
       }
     }
   }
+
 }

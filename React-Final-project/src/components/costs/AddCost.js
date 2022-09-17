@@ -42,7 +42,7 @@ const AddCost = ({ show, onClose, onSuccess, selectedUser }) => {
   return (
     <Modal show={show && !!selectedUser} onHide={onClose}>
       <div className="add-cost">
-        <div className="title">{`Add cost to user ${selectedUser?.id}`}</div>
+      <div className="title">{`Add cost to ${selectedUser?.firstName} ${selectedUser?.lastName}`}</div>
         <Form>
           <Form.Group className="form-group">
             <Form.Label>Name:</Form.Label>

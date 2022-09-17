@@ -50,6 +50,126 @@ const initUsers = [
 ];
 
 function App() {
+  //creating our demo namespace
+  var demo = {};
+  //different web browsers might have different implementations
+  // window.indexedDB =
+  //   window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+
+  //checking whether the web browser supports the IndexedDB database
+  //if it doesn't then showing a message saying so
+  if (!window.indexedDB) {
+    console.log("The web browser doesn't support IndexedDB");
+  }
+  //the data we want to store in our indexeddb database
+  demo.data = initUsers; /*[
+    { id: "1232523", brand: "Toyota", year: 2012, model: "Corola" },
+    { id: "2343434", brand: "Mazda", year: 2008, model: "6" },
+    { id: "2234345", brand: "Fiat", year: 2014, model: "500 Large" },
+    { id: "2234333", brand: "Fiat", year: 2011, model: "Bravo" },
+  ];*/
+
+  demo.db = null;
+  demo.request = window.indexedDB.open("projectdb", 1);
+  console.log("indexedDB.open() was called");
+
+  demo.request.onerror = function (event) {
+    console.log("error: ");
+  };
+  console.log("onerror was assigned");
+
+  demo.request.onsuccess = function (event) {
+    demo.db = demo.request.result;
+    console.log("success: " + demo.db);
+  };
+  console.log("onsuccess was assigned");
+
+  demo.request.onupgradeneeded = function (event) {
+    console.log("on upgrade");
+    var database = event.target.result;
+    var usersStore = database.createObjectStore("users", { keyPath: "id" });
+    var costsStore = database.createObjectStore("costs", { keyPath: "id" });
+    for (var i in demo.data) {
+      usersStore.add(demo.data[i]);
+    }
+  };
+  console.log("onupgradedneeded was assigned");
+
+  function readItem() {
+    var transaction = demo.db.transaction(["cars"]);
+    var objectStore = transaction.objectStore("cars");
+    var request = objectStore.get("12121212");
+    request.onerror = function (event) {
+      console.log("readItem(): cannot find the data item");
+    };
+    request.onsuccess = function (event) {
+      if (request.result) {
+        console.log(
+          "readItem(): " +
+            request.result.brand +
+            ", " +
+            request.result.id +
+            ", " +
+            request.result.model,
+        );
+      } else {
+        console.log("readItem(): cannot find the item");
+      }
+    };
+  }
+
+  function readAllItems() {
+    var objectStore = demo.db.transaction("cars").objectStore("cars");
+
+    objectStore.openCursor().onsuccess = function (event) {
+      var cursor = event.target.result;
+      if (cursor) {
+        console.log(
+          "readAllItems(): key=" +
+            cursor.key +
+            " brand=" +
+            cursor.value.brand +
+            " model=" +
+            cursor.value.model +
+            " id=" +
+            cursor.value.id,
+        );
+        cursor.continue();
+      } else {
+        console.log("readAllItems(): no more entries!");
+      }
+    };
+  }
+
+  function addItemV2(user, error, success) {
+    var request = demo.db.transaction(["users"], "readwrite").objectStore("users").add(user);
+
+    request.onsuccess = success;
+
+    request.onerror = error;
+  }
+
+  function addItem(user) {
+    addItemV2(
+      user,
+      function (event) {
+        console.log("addItem(): the new data item was added to your database.");
+      },
+      function (event) {
+        console.log("addItem(): problem with adding the new data item to the database ");
+      },
+    );
+  }
+
+  function removeItem() {
+    var request = demo.db.transaction(["cars"], "readwrite").objectStore("cars").delete("12121212");
+    request.onsuccess = function (event) {
+      console.log("removeItem(): the data item was removed from the database");
+    };
+    request.onerror = function (event) {
+      console.log("removeItem(): problem with removing a data item from the database");
+    };
+  }
   const [selectedUser, setSelectedUser] = useState(null);
 
   const { costs, addCost, removeCost, refreshCosts } = useCostManager(selectedUser?.id ?? null, {
@@ -110,6 +230,8 @@ function App() {
       setFilteredUsers((prevValue) => {
         return [...prevValue, params.newUser];
       });
+
+      addItem(params.newUser);
     }
   };
 
